@@ -9,6 +9,7 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { HomeComponent } from './home/home.component';
+import { ErrorComponent } from './error/error.component';
 
 
 
@@ -20,7 +21,8 @@ import { HomeComponent } from './home/home.component';
     SigninComponent,
     SignupComponent,
     AboutusComponent,
-    HomeComponent
+    HomeComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
