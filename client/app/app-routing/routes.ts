@@ -9,7 +9,7 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
     { path: 'signup', component: SignupComponent },
-    { path: '', component: SignupComponent },
+    { path: '', component: HomeComponent },
     { path: 'signin', component: SigninComponent },
     { path: 'error', component: ErrorComponent },
     { path: 'aboutus', component: AboutusComponent },

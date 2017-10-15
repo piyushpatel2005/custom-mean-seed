@@ -16,8 +16,17 @@ export class UserService {
     console.log("submitted:", submittedUser);
     const headers = new Headers ({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({headers: headers});
-    return this.http.post('http://localhost:3000/user/create', submittedUser, options)
+    return this.http.post(baseURL + 'user/create', submittedUser, options)
       .map((response: Response) =>  {response.json()})
       .catch((error:Response) => Observable.throw(error.json()));
+  }
+
+  authenticateUser(user: User): Observable<any>{
+    const submittedUser = JSON.stringify(user);
+    const headers = new Headers({ 'Content-Type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
+    return this.http.post( baseURL + 'user/signin', submittedUser, options)
+      .map(response => response.json())
+      .catch(error => Observable.throw(error));
   }
 }
