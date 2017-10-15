@@ -48,6 +48,7 @@
     "font-awesome": "^4.7.0",
     "hbs": "^4.0.1",
     "jquery": "^3.2.1",
+    "jsonwebtoken": "^8.1.0",
     "mongoose": "^4.12.1",
     "rxjs": "^5.4.3",
     "zone.js": "^0.8.18"
