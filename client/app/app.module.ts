@@ -12,6 +12,7 @@ import { SignupComponent } from './signup/signup.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { HomeComponent } from './home/home.component';
 import { ErrorComponent } from './error/error.component';
+import { ConfirmPasswordDirective } from './directives/confirm-password.directive';
 
 
 
@@ -24,8 +25,9 @@ import { ErrorComponent } from './error/error.component';
     SignupComponent,
     AboutusComponent,
     HomeComponent,
-    ErrorComponent
-  ],
+    ErrorComponent,
+    ConfirmPasswordDirective
+],
   imports: [
     BrowserModule,
     AppRoutingModule,

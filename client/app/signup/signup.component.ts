@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { User } from '../shared/user';
 
 @Component({
   selector: 'app-signup',
@@ -9,6 +11,44 @@ import { FormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms'
 export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
+  user: User;
+
+  validationMessages: any = {
+    firstName: {
+      required: 'First Name is required.',
+      minlength: 'First Name must be at least 2 characters long.',
+      maxlength: 'First Name must less than 25 characters.'
+    },
+    lastName: {
+      required: 'First Name is required.',
+      minlength: 'First Name must be at least 2 characters long.',
+      maxlength: 'First Name must less than 25 characters.'
+    },
+    email: {
+      required: 'First Name is required.',
+      email: 'Email address is not in proper format.'
+    },
+    password: {
+      required: 'First Name is required.',
+      minlength: 'First Name must be at least 2 characters long.',
+      maxlength: 'First Name must less than 25 characters.'
+    },
+    confirmPassword: {
+      required: 'First Name is required.',
+      minlength: 'First Name must be at least 2 characters long.',
+      maxlength: 'First Name must less than 25 characters.'
+    }
+  };
+
+  formErrors = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  };
+
+
 
   constructor(private fb: FormBuilder) {
     this.createForm();
@@ -17,14 +57,61 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
+  onSubmit() {
+    this.user = this.signupForm.value;
+    this.signupForm.reset();
+  }
+
   createForm(): void {
     this.signupForm = this.fb.group({
-      firstName: null,
-      lastName: null,
-      email: null,
-      password: null,
-      confirmPassword: null,
-      agree: false
-    })
+      firstName: ['', [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(25)
+        ]
+      ],
+      lastName: [null, [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(25)
+        ]
+      ],
+      email: [null, [
+          Validators.required,
+          Validators.email
+        ]
+      ],
+      password: [null, [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(25)
+        ]
+      ],
+      confirmPassword: [null, [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(25)
+        ]
+      ]
+    });
+
+    this.signupForm.valueChanges
+      .subscribe(data => this.onValueChanged(data));
+    this.onValueChanged();
+  }
+
+  onValueChanged(data?: any) {
+    if(!this.signupForm) { return; }
+    const form = this.signupForm;
+    for(const field in this.formErrors) {
+      this.formErrors[field] = '';
+      const control = form.get(field);
+      if(control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for(const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
   }
 }

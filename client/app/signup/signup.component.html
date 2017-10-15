@@ -6,49 +6,52 @@
   </div>
   <div class="row row-content">
     <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
-      <form class="form-horizontal" role="form" [formGroup]="signupForm">
-        <div class="form-group">
+      <form class="form-horizontal" role="form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div class="form-group" [ngClass]="(formErrors.firstName !== '') ? 'has-error':''">
           <label for="firstName" class="col-sm-2 control-label">First Name</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="firstName" name="firstName" formControlName="firstName" placeholder="First Name">
+            <input type="text" class="form-control" id="firstName" name="firstName" formControlName="firstName" placeholder="First Name" required>
+            <small [hidden]="!(formErrors.firstName)">{{ formErrors.firstName }}</small>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" [ngClass]="formErrors.lastName ? 'has-error':''">
           <label for="lastName" class="col-sm-2 control-label">Last Name</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName" placeholder="Last Name">
+            <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName" placeholder="Last Name" required>
+            <small [hidden]="!formErrors.lastName">{{ formErrors.lastName }}</small>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" [ngClass]="formErrors.email ? 'has-error':''">
           <label for="email" class="col-sm-2 control-label">Email</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="email" name="email" formControlName="email" placeholder="Email">
+            <input type="email" class="form-control" id="email" name="email" formControlName="email" placeholder="Email" email required>
+            <small [hidden]="!formErrors.email">{{ formErrors.email }}</small>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" [ngClass]="formErrors.password ? 'has-error':''">
           <label for="password" class="col-sm-2 control-label">Password</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="password" name="password" formControlName="password" placeholder="Password">
+            <input type="password" class="form-control" id="password" name="password" formControlName="password" placeholder="Password" required>
+            <small [hidden]="!formErrors.password">{{ formErrors.password }}</small>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" [ngClass]="formErrors.confirmPassword ? 'has-error':''">
           <label for="confirmPassword" class="col-sm-2 control-label">Repeat Password</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" placeholder="Confirm Password">
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" placeholder="Confirm Password" required>
+            <small [hidden]="!formErrors.confirmPassword">{{ formErrors.confirmPassword }}</small>
           </div>
         </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" formControlName="agree" > I agree to the Terms and Conditions.
-              </label>
-            </div>
+            <p>By Signing up, you agree to the Terms and Conditions.</p>
           </div>
         </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-primary">Create an Account</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">
+              Create an Account
+            </button>
           </div>
         </div>
       </form>
