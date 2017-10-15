@@ -1,3 +1,4 @@
+import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -32,11 +33,6 @@ export class SignupComponent implements OnInit {
       required: 'First Name is required.',
       minlength: 'First Name must be at least 2 characters long.',
       maxlength: 'First Name must less than 25 characters.'
-    },
-    confirmPassword: {
-      required: 'First Name is required.',
-      minlength: 'First Name must be at least 2 characters long.',
-      maxlength: 'First Name must less than 25 characters.'
     }
   };
 
@@ -44,13 +40,13 @@ export class SignupComponent implements OnInit {
     firstName: '',
     lastName: '',
     email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   };
 
 
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private userService: UserService) {
     this.createForm();
   }
 
@@ -59,6 +55,9 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     this.user = this.signupForm.value;
+    this.userService.createUser(this.user)
+      .subscribe(data => console.log(data),
+                error => console.log(error));
     this.signupForm.reset();
   }
 
@@ -82,12 +81,6 @@ export class SignupComponent implements OnInit {
         ]
       ],
       password: [null, [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(25)
-        ]
-      ],
-      confirmPassword: [null, [
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(25)
