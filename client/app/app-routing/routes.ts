@@ -12,8 +12,9 @@ export const routes: Routes = [
     { path: '', component: SignupComponent },
     { path: 'signin', component: SigninComponent },
     { path: 'error', component: ErrorComponent },
-    { path: '**', redirectTo: '/error', pathMatch: 'full' },
     { path: 'aboutus', component: AboutusComponent },
-    { path: 'home', component: HomeComponent }
+    { path: 'home', component: HomeComponent },
+    { path: '**', redirectTo: '/error' }
+    
 ];
 
