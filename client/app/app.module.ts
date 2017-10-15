@@ -1,3 +1,4 @@
+import { ProcessHttpmsgService } from './services/process-httpmsg.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { NgModule } from '@angular/core';
@@ -42,7 +43,8 @@ import { RestangularConfigFactory } from './shared/restConfig';
     HttpModule
   ],
   providers: [
-    UserService
+    UserService,
+    ProcessHttpmsgService
   ],
   bootstrap: [AppComponent]
 })

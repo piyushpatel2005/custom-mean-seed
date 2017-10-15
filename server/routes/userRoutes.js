@@ -15,10 +15,17 @@ router.post('/create', function (req, res) {
     });
 
     user.save(function(err, result) {
-        if(err) next(err);
+        if(err) {
+            res.status(500).json({
+                title: "Error",
+                message: "Failure to save the record.",
+                err: err
+            })
+        };
         res.status(201).json({
+            title: "Success!",
             message: "Your account has been created successfully",
-            obj: result
+            result: result
         });
     });
 });

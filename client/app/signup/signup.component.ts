@@ -13,6 +13,7 @@ export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
   user: User;
+  data: any;
 
   validationMessages: any = {
     firstName: {
@@ -56,8 +57,9 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     this.user = this.signupForm.value;
     this.userService.createUser(this.user)
-      .subscribe(data => console.log(data),
-                error => console.log(error));
+      .subscribe(data => {this.data = data; console.log(typeof(data));},
+                error => console.log(error),
+                () => console.log("Complete"));
     this.signupForm.reset();
   }
 
